@@ -1,0 +1,11 @@
+Model Information:
+* title:	low-poly Rog Zephyrus Duo 15 laptop
+* source:	https://sketchfab.com/3d-models/low-poly-rog-zephyrus-duo-15-laptop-f6ad990ffd184adb8b33e7af8f79427d
+* author:	MK7CG (https://sketchfab.com/MK7CG)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "low-poly Rog Zephyrus Duo 15 laptop" (https://sketchfab.com/3d-models/low-poly-rog-zephyrus-duo-15-laptop-f6ad990ffd184adb8b33e7af8f79427d) by MK7CG (https://sketchfab.com/MK7CG) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
