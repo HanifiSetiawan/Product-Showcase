@@ -1,9 +1,13 @@
 // Import the THREE.js library
 import * as THREE from "https://cdn.skypack.dev/three@0.129.0/build/three.module.js";
 // To allow for the camera to move around the scene
-import {OrbitControls} from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/controls/OrbitControls.js";
+import {
+  OrbitControls
+} from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/controls/OrbitControls.js";
 // To allow for importing the .gltf file
-import {GLTFLoader} from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/GLTFLoader.js";
+import {
+  GLTFLoader
+} from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/GLTFLoader.js";
 
 // Create a Three.JS Scene
 const scene = new THREE.Scene();
@@ -23,13 +27,14 @@ let objToRender = 'laptop2';
 const loader = new GLTFLoader();
 
 // Load the file
-loader.load(`models/${objToRender}/scene.gltf`,
+loader.load(
+  `models/${objToRender}/scene.gltf`,
   function (gltf) {
     // If the file is loaded, add it to the scene
     object = gltf.scene;
     scene.add(object);
     // Create hotspots after loading the model
-    createHotspot(new THREE.Vector3(0, 0.1, -0.3), 'LED Screen'); // Adjust the position as needed
+    createHotspot(new THREE.Vector3(0, 0.1, -0.25), 'LED Screen'); // Adjust the position as needed
     createHotspot(new THREE.Vector3(0, -0.12, 0), 'Keyboard');
   },
   function (xhr) {
@@ -109,6 +114,8 @@ scene.add(ambientLight);
 // This adds controls to the camera, so we can rotate / zoom it with the mouse
 if (objToRender === "laptop2") {
   controls = new OrbitControls(camera, renderer.domElement);
+  controls.minDistance = 0.5; // Set the minimum allowed distance (zoom in)
+  controls.maxDistance = 1; // Set the maximum allowed distance (zoom out)
 }
 
 // Render the scene
@@ -128,3 +135,4 @@ window.addEventListener("resize", function () {
 
 // Start the 3D rendering
 animate();
+
