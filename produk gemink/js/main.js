@@ -33,9 +33,11 @@ loader.load(
     // If the file is loaded, add it to the scene
     object = gltf.scene;
     scene.add(object);
+
+    object.scale.set(1.5, 1.5, 1.5);
     // Create hotspots after loading the model
-    createHotspot(new THREE.Vector3(0, 0.1, -0.25), 'LED Screen'); // Adjust the position as needed
-    createHotspot(new THREE.Vector3(0, -0.12, 0), 'Keyboard');
+    // createHotspot(new THREE.Vector3(0, 0.1, -0.25), 'LED Screen'); // Adjust the position as needed
+    // createHotspot(new THREE.Vector3(0, -0.12, 0), 'Keyboard');
   },
   function (xhr) {
     // While it is loading, log the progress
@@ -90,9 +92,33 @@ function updateHotspotPosition(hotspot) {
   hotspot.element.style.top = `${-screenPosition.y * windowHalfY + windowHalfY}px`;
 }
 
+// Function to animate camera movement
+function animateCameraPosition(targetPosition, targetLookAt, duration) {
+  const initialPosition = camera.position.clone();
+  const initialLookAt = new THREE.Vector3(camera.rotation.x, camera.rotation.y, camera.rotation.z);
+  const startTime = performance.now();
+
+  function updateCamera() {
+    const elapsed = performance.now() - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+
+    const newPosition = new THREE.Vector3().lerpVectors(initialPosition, targetPosition, progress);
+    const newLookAt = new THREE.Vector3().lerpVectors(initialLookAt, targetLookAt, progress);
+    camera.position.copy(newPosition);
+    camera.lookAt(newLookAt);
+
+    if (progress < 1) {
+      requestAnimationFrame(updateCamera);
+    }
+  }
+
+  requestAnimationFrame(updateCamera);
+}
+
 // Instantiate a new renderer and set its size
 const renderer = new THREE.WebGLRenderer({
-  alpha: true
+  alpha: true,
+  antialias: true
 }); // Alpha: true allows for the transparent background
 renderer.setSize(window.innerWidth, window.innerHeight);
 
@@ -101,6 +127,9 @@ document.getElementById("container3D").appendChild(renderer.domElement);
 
 // Set how far the camera will be from the 3D model
 camera.position.z = objToRender === "laptop2" ? 0.7 : 500;
+
+camera.position.set(-0.5, 1.2, 1);
+camera.lookAt(1, 1, 1);
 
 // Add lights to the scene, so we can actually see the 3D model
 const topLight = new THREE.DirectionalLight(0xffffff, 1); // (color, intensity)
@@ -111,11 +140,35 @@ scene.add(topLight);
 const ambientLight = new THREE.AmbientLight(0x333333, objToRender === "laptop2" ? 5 : 1);
 scene.add(ambientLight);
 
+const cameraKeyboard = document.getElementById('cameraKeyboard');
+cameraKeyboard.addEventListener('click', () =>{
+  const targetPosition = new THREE.Vector3(0, 0.5, 0);
+  const targetLookAt = new THREE.Vector3(0, 0, 0);
+  const duration = 1000; // Adjust the duration as needed
+  animateCameraPosition(targetPosition, targetLookAt, duration);
+});
+
+const cameraTouchpad = document.getElementById('cameraTouchpad');
+cameraTouchpad.addEventListener('click', () =>{
+  const targetPosition = new THREE.Vector3(0, 0.3, 0.2);
+  const targetLookAt = new THREE.Vector3(0, 0, 0.3);
+  const duration = 1000; // Adjust the duration as needed
+  animateCameraPosition(targetPosition, targetLookAt, duration);
+});
+
+const cameraLED = document.getElementById('cameraLED');
+cameraLED.addEventListener("click", () => {
+  const targetPosition = new THREE.Vector3(0, 0.4, 0);
+  const targetLookAt = new THREE.Vector3(0, 0.3, -0.5);
+  const duration = 1000; // Adjust the duration as needed
+  animateCameraPosition(targetPosition, targetLookAt, duration);
+});
+
 // This adds controls to the camera, so we can rotate / zoom it with the mouse
 if (objToRender === "laptop2") {
   controls = new OrbitControls(camera, renderer.domElement);
-  controls.minDistance = 0.5; // Set the minimum allowed distance (zoom in)
-  controls.maxDistance = 1; // Set the maximum allowed distance (zoom out)
+  // controls.minDistance = 0.5; // Set the minimum allowed distance (zoom in)
+  // controls.maxDistance = 1; // Set the maximum allowed distance (zoom out)
 }
 
 // Render the scene

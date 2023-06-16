@@ -1,13 +1,32 @@
 body {
   margin: 0;
-  font-family: "Montserrat", sans-serif;
-  background-color: rgb(255, 255, 255);
+  font-family: "Roboto", sans-serif;
+  background-color: #136f83 ;
+  color: #464444; 
+}
+
+.Navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: right;
+  padding: 1rem 7%;
+  background-color: rgba(142, 180, 177, 0.841);
+  border-top: 1px solid rgba(152, 150, 150, 0.7);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  /* bottom: 0; */
+  z-index: 9999;
 }
 
 header {
   margin-top: 3em;
   text-align: center;
-  color: rgb(0, 0, 0);
+}
+
+title{
+  float: left;
 }
 
 header h1 {
@@ -23,11 +42,49 @@ header h1 {
   left: 0;
 }
 
+
 .hotspot {
   width: 50px;
   height: 20px;
   position: absolute;
   cursor: pointer;
+  color: whitesmoke;
+  display: block;
+  padding: 5px;
+  background-color: rgb(9, 15, 37);
+  margin: 5px;
+
+}
+
+.Navbar .Navbar-Nav a{
+  color: aliceblue;
+  margin: 0 0.5;
+  text-align: left;
+}
+.Navbar .Navbar-logo{
+  font-size: 2rem;
+  font-weight: 800;
+  color: WHITE;
+}
+.Navbar .Navbar-logo span{
+  color: red;
+}
+
+.Navbar .Navbar-Nav{
+  font-size: 1.4rem;
+  align-items: center;
+  margin-left: 12;
+  font-weight: 1000;
 }
 
 
+/* .content{
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background-image: url('../gambar/gambar.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+} */
